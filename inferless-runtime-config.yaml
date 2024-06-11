@@ -1,7 +1,6 @@
 build:
-  cuda_version: "11.8.0"
-  system_packages:
-    - "libssl-dev"
   python_packages:
-    - "torch==2.1.2"
-    - "vllm==0.2.7"
+    - "accelerate==0.30.1"
+    - "transformers==4.41.2"
+    - "torch==2.3.0"
+    - "vllm==0.4.3"
