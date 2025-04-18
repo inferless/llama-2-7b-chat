@@ -1,80 +1,46 @@
 # Llama-2-7B-Chat
 Llama 2 7B Chat is the smallest chat model in the Llama 2 family of large language models developed by Meta AI. This model has 7 billion parameters and was pretrained on 2 trillion tokens of data from publicly available sources. It has been fine-tuned on over one million human-annotated instruction datasets
-## Deploy Llama-2-7B using Inferless:
+
+## TL;DR:
 - Deployment of Llama-2-7B model using [vLLM](https://github.com/vllm-project/vllm).
-- By using the vLLM, you can expect an average latency of 2.52 sec.
----
-## Prerequisites
-- **Git**. You would need git installed on your system if you wish to customize the repo after forking.
-- **Python>=3.8**. You would need Python to customize the code in the app.py according to your needs.
-- **Curl**. You would need Curl if you want to make API calls from the terminal itself.
-
----
-## Quick Start
-Here is a quick start to help you get up and running with this template on Inferless.
-
-### Download the config-vllm and Create a runtime 
-Get started by downloading the config-vllm.yaml file and go to Inferless dashboard and create a custom runtime 
-
-Quickly add this as a Custom runtime
+- By using the vLLM, you can expect an average latency of `2.52` sec.
+- Dependencies defined in `inferless-runtime-config.yaml`.
+- GitHub/GitLab template creation with `app.py`, `inferless-runtime-config.yaml` and `inferless.yaml`.
+- Model class in `app.py` with `initialize`, `infer`, and `finalize` functions.
+- Custom runtime creation with necessary system and Python packages.
+- Model import via GitHub with `input_schema.py` file.
+- Recommended GPU: NVIDIA A100.
+- Custom runtime selection in advanced configuration.
+- Final review and deployment on the Inferless platform.
 
 ### Fork the Repository
 Get started by forking the repository. You can do this by clicking on the fork button in the top right corner of the repository page.
 
 This will create a copy of the repository in your own GitHub account, allowing you to make changes and customize it according to your needs.
 
-### Add Your Hugging Face Auth Token
-Go into the `app.py` and replace `<your_token>` with your hugging face api key. This token will be used to download weights from hugging face if you're using Llama-2. Make sure to check the repo is private to protect your hugging face key.
+### Create a Custom Runtime in Inferless
+To access the custom runtime window in Inferless, simply navigate to the sidebar and click on the Create new Runtime button. A pop-up will appear.
 
+Next, provide a suitable name for your custom runtime and proceed by uploading the **inferless-runtime-config.yaml** file given above. Finally, ensure you save your changes by clicking on the save button.
+
+### Add Your Hugging Face Access Token
+This model requires a Hugging Face access token for authentication. You can provide the token in the following ways:
+
+- **Via the Platform UI**: Set the `HF_TOKEN` in the **Environment Variables** section.
+- **Via the CLI**: Add the `HF_TOKEN` as an environment variable.
 
 ### Import the Model in Inferless
-Log in to your inferless account, select the workspace you want the model to be imported into and click the Add Model button.
+Log in to your inferless account, select the workspace you want the model to be imported into and click the `Add a custom model` button.
 
-Select the PyTorch as framework and choose **Repo(custom code)** as your model source and use the forked repo URL as the **Model URL**.
+- Select `Github` as the method of upload from the Provider list and then select your Github Repository and the branch.
+- Choose the type of machine, and specify the minimum and maximum number of replicas for deploying your model.
+- Configure Custom Runtime ( If you have pip or apt packages), choose Volume, Secrets and set Environment variables like Inference Timeout / Container Concurrency / Scale Down Timeout
+- Once you click “Continue,” click Deploy to start the model import process.
 
-After the create model step, while setting the configuration for the model make sure to select the appropriate runtime.
+Enter all the required details to Import your model. Refer [this link](https://docs.inferless.com/integrations/git-custom-code/git--custom-code) for more information on model import.
 
-Enter all the required details to Import your model. Refer [this link](https://docs.inferless.com/integrations/github-custom-code) for more information on model import.
 
-The following is a sample Input and Output JSON for this model which you can use while importing this model on Inferless.
 
-### Input
-```json
-{
-  "inputs": [
-    {
-      "data": [
-        "What is Quantum Computing?"
-      ],
-      "name": "questions",
-      "shape": [
-        1
-      ],
-      "datatype": "BYTES"
-    }
-  ]
-}
-```
-
-### Output
-```json
-{
-  "outputs": [
-    {
-      "data": [
-        "data"
-      ],
-      "name": "result",
-      "shape": [
-        1
-      ],
-      "datatype": "BYTES"
-    }
-  ]
-}
-```
-
----
 ## Curl Command
 Following is an example of the curl command you can use to make inference. You can find the exact curl command in the Model's API page in Inferless.
 ```bash
